@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
+using System.IO;
 
 namespace Graphics {
     class Graph : Window {
@@ -42,8 +43,19 @@ namespace Graphics {
             datas.Add(data);
         }
 
-        public void WriteToFile(string file) {
-            //TODO
+        public void WriteToFile(string path) {
+            Directory.CreateDirectory(path);
+            const char xsep = ':';
+            const char ysep = ';';
+            foreach(Data d in datas) {
+                string fileName = name + " " + d.title;
+                StreamWriter streamWriter = new StreamWriter(path + "\\" + fileName + ".txt");
+                streamWriter.WriteLine(xLabel + xsep + yLabel + ysep);
+                foreach (Point p in d.points) {
+                    streamWriter.WriteLine("" + p.argument + xsep + p.value + ysep);
+                }
+                streamWriter.Close();
+            }
         }
 
         protected override void Update() {

@@ -12,21 +12,27 @@ namespace DataStructures {
         }
 
         private Node first;
+        private Node last;
 
         public void Add(T e) {
             if (first == null) {
                 first = new Node {
                     Element = e
                 };
+                last = first;
             } 
             else {
-                Node n = first;
+                /*Node n = first;
                 while (n.Next != null) {
                     n = n.Next;
                 }
                 n.Next = new Node() {
                     Element = e
+                };*/
+                last.Next = new Node() {
+                    Element = e
                 };
+                last = last.Next;
             }
         }
 

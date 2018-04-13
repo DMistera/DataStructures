@@ -29,7 +29,7 @@ namespace DataStructures {
 
             for (int i = 0; i < measures; i++) {
 
-                int n = (i + 1) * 500;
+                int n = (i + 1) * 3000;
 
                 int[] a = GenerateArray(n);
 
@@ -103,24 +103,29 @@ namespace DataStructures {
                 Console.WriteLine((i + 1) + "/" + measures + " completed.");
             }
 
-            Graph creationGraph = new Graph("Creation Time", "Number of elements", "Time");
+            string path = @".\Graphs";
+
+            Graph creationGraph = new Graph("Creation Time", "Number of elements", "Time[ms]");
             creationGraph.AddData(cb);
             creationGraph.AddData(cl);
             creationGraph.AddData(ctr);
             creationGraph.AddData(ctb);
             creationGraph.StartWithNewThread();
+            creationGraph.WriteToFile(path);
 
-            Graph searchGraph = new Graph("Search Time", "Number of elements", "Time");
+            Graph searchGraph = new Graph("Search Time", "Number of elements", "Time[ms]");
             searchGraph.AddData(sb);
             searchGraph.AddData(sl);
             searchGraph.AddData(str);
             searchGraph.AddData(stb);
             searchGraph.StartWithNewThread();
+            searchGraph.WriteToFile(path);
 
             Graph heightGraph = new Graph("Height", "Number of elements", "Height");
             heightGraph.AddData(htr);
             heightGraph.AddData(htb);
             heightGraph.StartWithNewThread();
+            heightGraph.WriteToFile(path);
         }
 
         private int[] GenerateArray(int size) {
