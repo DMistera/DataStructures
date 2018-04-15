@@ -81,19 +81,6 @@ namespace DataStructures {
             }
         }
 
-        public void FillWithSortedArray(TValue[] values, TKey[] sortedKeys) {
-            FillWithSortedArray(values, sortedKeys, 0, sortedKeys.Length - 1);
-        }
-
-        private void FillWithSortedArray(TValue[] values, TKey[] sortedKeys, int start, int end) {
-            if (end - start > 1) {
-                int middle = (start + end) / 2;
-                Add(values[middle], sortedKeys[middle]);
-                FillWithSortedArray(values, sortedKeys, start, middle);
-                FillWithSortedArray(values, sortedKeys, middle, end);
-            }
-        }
-
         private class Node {
             private Node left;
             private Node rigth;

@@ -11,7 +11,7 @@ namespace DataStructures {
     public class Program {
         public void Start() {
 
-            const int measures = 20;
+            const int measures = 50;
 
             Graph.Data cb = new Graph.Data("Array B");
             Graph.Data cl = new Graph.Data("List L");
@@ -29,7 +29,7 @@ namespace DataStructures {
 
             for (int i = 0; i < measures; i++) {
 
-                int n = (i + 1) * 3000;
+                int n = (i + 1) * 500;
 
                 int[] a = GenerateArray(n);
 
@@ -87,14 +87,17 @@ namespace DataStructures {
                 htr.AddPoint(n, tr.GetHeight());
 
                 //Tree TB
+                int[] temp = Median(b);
                 stopwatch.Restart();
                 BinarySearchTree<int, int> tb = new BinarySearchTree<int, int>();
-                tb.FillWithSortedArray(b, b);
+                for(int j = 0; j < n; j++) {
+                    tb.Add(temp[j], temp[j]);
+                }
                 stopwatch.Stop();
                 ctb.AddPoint(n, stopwatch.ElapsedMilliseconds);
                 stopwatch.Restart();
                 for (int j = 0; j < n; j++) {
-                    tr.GetElement(a[j]);
+                    tb.GetElement(a[j]);
                 }
                 stopwatch.Stop();
                 stb.AddPoint(n, stopwatch.ElapsedMilliseconds);
@@ -115,6 +118,7 @@ namespace DataStructures {
 
             Graph searchGraph = new Graph("Search Time", "Number of elements", "Time[ms]");
             searchGraph.AddData(sb);
+            searchGraph.AddData(sbb);
             searchGraph.AddData(sl);
             searchGraph.AddData(str);
             searchGraph.AddData(stb);
@@ -151,13 +155,32 @@ namespace DataStructures {
             if (sortedArray[middle] == value) {
                 return middle;
             } else if (sortedArray[middle + 1] == value) {
-                return middle + 1;
+              return middle + 1;
             } else {
                 if (sortedArray[middle] < value) {
                     return FindByHalf(sortedArray, value, middle, end);
                 } else {
                     return FindByHalf(sortedArray, value, start, middle);
                 }
+            }
+        }
+
+        private int medianCount = 0;
+
+        private int[] Median(int[] sortedArray) {
+            medianCount = 0;
+            int[] result = new int[sortedArray.Length];
+            Median(result, sortedArray, -1, sortedArray.Length);
+            return result;
+        }
+
+        private void Median(int[] result, int[] sortedArray, int start, int end) {
+            if (end - start > 1) {
+                int middle = (start + end) / 2;
+                result[medianCount] = sortedArray[middle];
+                medianCount++;
+                Median(result, sortedArray, start, middle);
+                Median(result, sortedArray, middle, end);
             }
         }
     }

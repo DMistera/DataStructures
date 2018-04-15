@@ -49,7 +49,7 @@ namespace Graphics {
             const char ysep = ';';
             foreach(Data d in datas) {
                 string fileName = name + " " + d.title;
-                StreamWriter streamWriter = new StreamWriter(path + "\\" + fileName + ".txt");
+                StreamWriter streamWriter = new StreamWriter(path + "\\" + fileName + ".csv");
                 streamWriter.WriteLine(xLabel + xsep + yLabel + ysep);
                 foreach (Point p in d.points) {
                     streamWriter.WriteLine("" + p.argument + xsep + p.value + ysep);
